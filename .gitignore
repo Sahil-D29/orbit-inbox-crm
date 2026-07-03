@@ -1,0 +1,16 @@
+node_modules
+.pnpm-store
+.next
+dist
+coverage
+.env
+.env.local
+.env.production
+*.log
+packages/database/prisma/dev.db
+apps/web/.next
+apps/web/.vercel
+apps/web/public/icon-*.png
+apps/web/public/og.png
+.turbo
+*.tsbuildinfo
