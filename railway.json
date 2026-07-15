@@ -6,7 +6,7 @@
   },
   "deploy": {
     "startCommand": "pnpm --filter @crm/web start",
-    "healthcheckPath": "/",
-    "healthcheckTimeout": 300
+    "healthcheckPath": "/sign-in",
+    "healthcheckTimeout": 120
   }
 }
