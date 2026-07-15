@@ -5,6 +5,45 @@ WhatsApp Business Cloud API, Instagram DMs and comments, and Facebook Page
 Messenger. It connects directly to Google and Meta; no messaging aggregator or
 webhook proxy is used.
 
+## Current Railway status
+
+The main demo flow is working on Railway.
+
+- Web app: `https://crmweb-production-f3e7.up.railway.app/sign-in`
+- API health: `https://crmapi-production-fcd3.up.railway.app/v1/health`
+- Demo login: click **Sign in as demo user**
+- Demo credentials, if needed manually: `sahil@example.com` / `orbit123`
+
+Working pieces:
+
+- Web, API, worker, PostgreSQL, and Redis services are deployed.
+- The API runs Prisma migrations and seeds demo data before starting.
+- The sign-in page is styled on desktop/mobile and includes one-click demo login.
+- Railway production cookies are configured for the web and API subdomains.
+- Web static assets are served through `next start`.
+
+If you change layout or features locally, edit the code in this repo, test it,
+then commit and push to GitHub. Railway is connected to GitHub and will deploy
+the pushed changes automatically for the affected service.
+
+Typical update flow:
+
+```powershell
+git status --short
+corepack pnpm --filter @crm/web typecheck
+corepack pnpm --filter @crm/web build
+git add .
+git commit -m "Describe the change"
+git push origin master
+```
+
+For API/database changes, also run the relevant checks:
+
+```powershell
+corepack pnpm --filter @crm/api typecheck
+corepack pnpm --filter @crm/database typecheck
+```
+
 ## What is implemented
 
 - Responsive inbox, conversation view, customer context, Instagram moderation
@@ -64,10 +103,17 @@ permissions/app review.
 
 ## Deployment
 
-Each app includes an ordinary Node build suitable for a Cloud Run container.
-Use Cloud SQL PostgreSQL, Memorystore Redis, Cloud Storage, Secret Manager/KMS,
-and Pub/Sub. Run API and worker as separate Cloud Run services. Execute schema
-migrations as a release job before shifting traffic.
+The project is currently deployed on Railway as separate services:
+
+- `@crm/web`
+- `@crm/api`
+- `@crm/worker`
+- `Postgres`
+- `Redis`
+
+Railway builds from GitHub `master`. Push changes to GitHub to update the live
+deployment. The API service start command runs migrations and seed data before
+starting the NestJS API, so a fresh Railway database can initialize itself.
 
 ## Security boundary
 
