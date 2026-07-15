@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { getCachedMe } from "@/lib/auth";
 import { previewItems, previewDetail } from "@/lib/data";
 import type { View, InboxItem, Detail } from "@/lib/types";
-import { Icons } from "./ui";
+import { Icons, initials } from "./ui";
 import { Dashboard } from "./dashboard";
 import { InboxShell } from "./inbox";
 import { Comments } from "./comments";
@@ -35,6 +36,23 @@ export function CrmApp() {
   const [error, setError] = useState<string>();
   const [previewMode, setPreviewMode] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [savedViews, setSavedViews] = useState<{ name: string; query: Record<string, unknown> }[]>([]);
+
+  const me = getCachedMe();
+  const currentMembership = me?.currentTenant;
+  const userDisplayName = me?.user?.name ?? "Sahil";
+  const userInitial = initials(userDisplayName);
+  const userRole = currentMembership?.role === "ADMIN" ? "Administrator" : "Agent";
+
+  useEffect(() => {
+    void api<{ name: string; query: Record<string, unknown> }[]>("/saved-views")
+      .then(setSavedViews)
+      .catch(() => setSavedViews([
+        { name: "Needs a reply", query: { status: "OPEN", unread: true } },
+        { name: "Assigned to me", query: { status: "OPEN" } },
+        { name: "Waiting", query: { status: "PENDING" } },
+      ]));
+  }, []);
 
   const loadInbox = useCallback(async () => {
     try {
@@ -71,6 +89,14 @@ export function CrmApp() {
     });
   }, [selected, previewMode]);
 
+  function applySavedView(savedView: { query: Record<string, unknown> }) {
+    setView("inbox");
+    const q = savedView.query;
+    setStatus(String(q.status ?? "OPEN"));
+    setChannel(String(q.channel ?? ""));
+    setQuery(String(q.q ?? ""));
+  }
+
   return (
     <main className="app-shell">
       <aside className="rail">
@@ -90,13 +116,15 @@ export function CrmApp() {
         </nav>
         <div className="saved-nav">
           <div className="rail-label">Saved views</div>
-          <button onClick={() => { setView("inbox"); setStatus("OPEN"); setQuery(""); }}><span className="view-dot urgent" />Needs a reply<i>3</i></button>
-          <button onClick={() => { setView("inbox"); setStatus("OPEN"); setQuery(""); }}><span className="view-dot" />Assigned to me<i>2</i></button>
-          <button onClick={() => { setView("inbox"); setStatus("PENDING"); setQuery(""); }}><span className="view-dot waiting" />Waiting<i>1</i></button>
+          {savedViews.map((sv) => (
+            <button key={sv.name} onClick={() => applySavedView(sv)}>
+              <span className="view-dot" />{sv.name}
+            </button>
+          ))}
         </div>
         <div className="rail-bottom">
-          <div className="avatar avatar-small">S</div>
-          <div className="rail-user"><strong>Sahil</strong><span>Administrator</span></div>
+          <div className="avatar avatar-small">{userInitial}</div>
+          <div className="rail-user"><strong>{userDisplayName}</strong><span>{userRole}</span></div>
           <button className="help-button">?</button>
         </div>
       </aside>

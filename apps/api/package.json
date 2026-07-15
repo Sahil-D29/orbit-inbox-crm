@@ -17,8 +17,10 @@
     "@nestjs/config": "4.0.2",
     "@nestjs/core": "11.1.9",
     "@nestjs/platform-express": "11.1.9",
+    "bcrypt": "^6.0.0",
     "bullmq": "5.66.4",
     "cookie-parser": "1.4.7",
+    "express-session": "^1.19.0",
     "google-auth-library": "10.5.0",
     "helmet": "8.1.0",
     "ioredis": "5.8.2",
@@ -27,8 +29,10 @@
   },
   "devDependencies": {
     "@nestjs/cli": "11.0.14",
+    "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "1.4.10",
     "@types/express": "5.0.5",
+    "@types/express-session": "^1.19.0",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
   }

@@ -2,7 +2,7 @@ import type { Channel } from "@/lib/types";
 import { initials } from "@/lib/data";
 import { Icons } from "./icons";
 
-export { Icons };
+export { Icons, initials };
 
 export function Avatar({ name, image, online, large }: { name: string; image?: string; online?: boolean; large?: boolean }) {
   return <div className={`avatar ${large ? "avatar-large" : ""}`} style={image ? { backgroundImage: `url(${image})` } : undefined}><span>{image ? "" : initials(name)}</span>{online && <i />}</div>;

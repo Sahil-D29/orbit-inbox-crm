@@ -8,6 +8,7 @@ import {
   Provider,
   Role,
 } from "@prisma/client";
+import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
 const tenantId = "11111111-1111-4111-8111-111111111111";
@@ -20,15 +21,16 @@ async function main() {
     update: {},
     create: { id: tenantId, name: "Sadhana Studio", slug: "sadhana-studio" },
   });
+  const passwordHash = process.env.SEED_PASSWORD ? await hash(process.env.SEED_PASSWORD, 10) : undefined;
   const admin = await prisma.user.upsert({
     where: { email: "sahil@example.com" },
-    update: {},
-    create: { id: adminId, email: "sahil@example.com", name: "Sahil" },
+    update: { passwordHash },
+    create: { id: adminId, email: "sahil@example.com", name: "Sahil", passwordHash },
   });
   const agent = await prisma.user.upsert({
     where: { email: "ananya@example.com" },
-    update: {},
-    create: { id: agentId, email: "ananya@example.com", name: "Ananya Rao" },
+    update: { passwordHash },
+    create: { id: agentId, email: "ananya@example.com", name: "Ananya Rao", passwordHash },
   });
   await prisma.membership.upsert({
     where: { tenantId_userId: { tenantId, userId: admin.id } },

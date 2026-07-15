@@ -112,17 +112,18 @@ model Tenant {
 }
 
 model User {
-  id          String       @id @default(uuid()) @db.Uuid
-  email       String       @unique
-  name        String
-  avatarUrl   String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  memberships Membership[]
-  assignments Conversation[] @relation("ConversationAssignee")
-  comments    InstagramComment[] @relation("CommentAssignee")
-  notes       Note[]
-  auditLogs   AuditLog[]
+  id           String       @id @default(uuid()) @db.Uuid
+  email        String       @unique
+  name         String
+  avatarUrl    String?
+  passwordHash String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  memberships  Membership[]
+  assignments  Conversation[] @relation("ConversationAssignee")
+  comments     InstagramComment[] @relation("CommentAssignee")
+  notes        Note[]
+  auditLogs    AuditLog[]
 }
 
 model Membership {
