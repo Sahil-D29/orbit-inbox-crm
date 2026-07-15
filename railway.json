@@ -5,8 +5,6 @@
     "buildCommand": "pnpm install --frozen-lockfile --prod=false && pnpm --filter @crm/database generate && pnpm --filter @crm/contracts build && pnpm --filter @crm/database build && pnpm --filter @crm/web build"
   },
   "deploy": {
-    "startCommand": "pnpm --filter @crm/web start",
-    "healthcheckPath": "/sign-in",
-    "healthcheckTimeout": 120
+    "startCommand": "pnpm --filter @crm/web start"
   }
 }
