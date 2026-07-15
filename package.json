@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "pnpm --parallel --filter @crm/api --filter @crm/web --filter @crm/worker dev",
     "build": "pnpm --filter @crm/contracts build && pnpm --filter @crm/database generate && pnpm --filter @crm/database build && pnpm -r --filter !@crm/contracts --filter !@crm/database build",
