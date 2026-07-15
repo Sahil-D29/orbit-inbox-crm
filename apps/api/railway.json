@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "RAILPACK",
+    "builder": "NIXPACKS",
     "buildCommand": "pnpm install --frozen-lockfile && pnpm --filter @crm/database generate && pnpm --filter @crm/contracts build && pnpm --filter @crm/database build && pnpm --filter @crm/api build"
   },
   "deploy": {
