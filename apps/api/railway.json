@@ -5,7 +5,7 @@
     "buildCommand": "pnpm install --frozen-lockfile --prod=false && pnpm --filter @crm/database generate && pnpm --filter @crm/contracts build && pnpm --filter @crm/database build && pnpm --filter @crm/api build"
   },
   "deploy": {
-    "startCommand": "pnpm --filter @crm/api start",
+    "startCommand": "pnpm --filter @crm/database migrate && pnpm --filter @crm/database seed && pnpm --filter @crm/api start",
     "healthcheckPath": "/v1/health",
     "healthcheckTimeout": 100
   }
