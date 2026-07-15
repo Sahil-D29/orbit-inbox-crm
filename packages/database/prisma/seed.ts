@@ -21,7 +21,7 @@ async function main() {
     update: {},
     create: { id: tenantId, name: "Sadhana Studio", slug: "sadhana-studio" },
   });
-  const passwordHash = process.env.SEED_PASSWORD ? await hash(process.env.SEED_PASSWORD, 10) : undefined;
+  const passwordHash = await hash(process.env.SEED_PASSWORD ?? "orbit123", 10);
   const admin = await prisma.user.upsert({
     where: { email: "sahil@example.com" },
     update: { passwordHash },
