@@ -5,8 +5,6 @@
     "buildCommand": "pnpm install --frozen-lockfile && pnpm --filter @crm/contracts build && pnpm --filter @crm/database build && pnpm --filter @crm/worker build"
   },
   "deploy": {
-    "startCommand": "pnpm --filter @crm/worker start",
-    "healthcheckPath": "/",
-    "healthcheckTimeout": 100
+    "startCommand": "pnpm --filter @crm/worker start"
   }
 }
