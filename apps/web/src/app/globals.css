@@ -598,6 +598,31 @@ input[type="checkbox"]:checked { background: var(--color-primary); border-color:
 .post-preview p { font-size: 9px; line-height: 1.5; margin-top: 8px; }
 .page-error { max-width: 1280px; margin-left: auto; margin-right: auto; }
 
+/* === sign-in page === */
+.sign-in-page { min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at top left, #eef2ff 0, var(--color-bg) 34%, var(--color-bg) 100%); padding: 24px; }
+.sign-in-card { width: min(420px, 100%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: 36px 30px; }
+.sign-in-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.sign-in-brand .brand { width: 40px; height: 40px; border-radius: var(--radius-md); border: 0; background: linear-gradient(145deg, #818cf8, #4f46e5); color: #fff; font-family: var(--font-serif); font-weight: 700; font-size: 20px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(79,70,229,.35); }
+.sign-in-brand strong { font-size: 18px; letter-spacing: 0; }
+.sign-in-card h1 { font-size: 24px; font-weight: 680; letter-spacing: 0; margin: 0 0 6px; }
+.sign-in-sub { color: var(--color-text-muted); font-size: 12px; margin: 0 0 22px; }
+.sign-in-card form { display: flex; flex-direction: column; gap: 14px; }
+.sign-in-card label { display: flex; flex-direction: column; gap: 5px; font-size: 10px; font-weight: 650; color: var(--color-text-secondary); }
+.sign-in-card input { width: 100%; height: 42px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 12px; font-size: 13px; background: var(--color-bg); outline: 0; }
+.sign-in-card input:focus { border-color: var(--color-primary-border); box-shadow: 0 0 0 3px rgba(79,70,229,.08); background: var(--color-surface); }
+.sign-in-button { width: 100%; height: 42px; justify-content: center; margin-top: 4px; }
+.sign-in-toggle { text-align: center; margin-top: 18px; font-size: 11px; color: var(--color-text-secondary); }
+.sign-in-toggle button { border: 0; background: transparent; color: var(--color-primary); font-weight: 600; cursor: pointer; font-size: 11px; }
+.sign-in-toggle button:hover { text-decoration: underline; }
+.sign-in-demo { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; font-size: 11px; color: var(--color-text-secondary); background: var(--color-primary-soft); border: 1px solid var(--color-primary-border); border-radius: var(--radius-sm); padding: 12px; }
+.sign-in-demo span { color: var(--color-text-muted); font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; }
+.sign-in-demo strong { color: var(--color-text); font-size: 12px; }
+.demo-sign-in-button { background: var(--color-surface); }
+
+/* === loading screen === */
+.loading-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: var(--color-bg); color: var(--color-text-muted); }
+.loading-screen p { font-size: 13px; }
+
 /* === responsive === */
 @media (max-width: 1280px) {
   .rail { width: 78px; flex-basis: 78px; align-items: center; padding-left: 10px; padding-right: 10px; }
@@ -638,28 +663,6 @@ input[type="checkbox"]:checked { background: var(--color-primary); border-color:
     background: var(--color-bg);
 }
 
-/* === sign-in page === */
-.sign-in-page { min-height: 100vh; display: grid; place-items: center; background: var(--color-bg); padding: 20px; }
-.sign-in-card { width: min(400px, 100%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: 36px 30px; }
-.sign-in-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
-.sign-in-brand .brand { width: 40px; height: 40px; border-radius: var(--radius-md); border: 0; background: linear-gradient(145deg, #818cf8, #4f46e5); color: #fff; font-family: var(--font-serif); font-weight: 700; font-size: 20px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(79,70,229,.35); }
-.sign-in-brand strong { font-size: 18px; letter-spacing: -.02em; }
-.sign-in-card h1 { font-size: 22px; font-weight: 680; letter-spacing: -.03em; margin: 0 0 6px; }
-.sign-in-sub { color: var(--color-text-muted); font-size: 11px; margin: 0 0 22px; }
-.sign-in-card form { display: flex; flex-direction: column; gap: 14px; }
-.sign-in-card label { display: flex; flex-direction: column; gap: 5px; font-size: 9px; font-weight: 650; color: var(--color-text-secondary); }
-.sign-in-card input { height: 42px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 12px; font-size: 13px; background: var(--color-bg); outline: 0; }
-.sign-in-card input:focus { border-color: var(--color-primary-border); box-shadow: 0 0 0 3px rgba(79,70,229,.08); background: var(--color-surface); }
-.sign-in-button { width: 100%; height: 42px; justify-content: center; margin-top: 4px; }
-.sign-in-toggle { text-align: center; margin-top: 18px; font-size: 11px; color: var(--color-text-secondary); }
-.sign-in-toggle button { border: 0; background: transparent; color: var(--color-primary); font-weight: 600; cursor: pointer; font-size: 11px; }
-.sign-in-toggle button:hover { text-decoration: underline; }
-.sign-in-demo { text-align: center; margin-top: 12px; font-size: 10px; color: var(--color-text-muted); background: var(--color-primary-soft); border: 1px solid var(--color-primary-border); border-radius: var(--radius-sm); padding: 8px; }
-.sign-in-error { background: var(--color-danger-soft); color: #991b1b; border: 1px solid var(--color-danger-border); padding: 8px 10px; border-radius: var(--radius-sm); font-size: 10px; }
-
-/* === loading screen === */
-.loading-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: var(--color-bg); color: var(--color-text-muted); }
-.loading-screen p { font-size: 13px; }
   .conversation-pane.mobile-open { display: flex; }
   .mobile-back { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--color-border); background: var(--color-surface); border-radius: var(--radius-sm); margin-right: 4px; font-size: 14px; }
   .conversation-header { padding: 0 12px; }

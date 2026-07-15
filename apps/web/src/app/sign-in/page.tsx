@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "@/lib/api";
 
+const DEMO_EMAIL = "sahil@example.com";
+const DEMO_PASSWORD = "orbit123";
+
 export default function SignInPage() {
   const router = useRouter();
   const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
@@ -34,6 +37,25 @@ export default function SignInPage() {
       router.push("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Authentication failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDemoSignIn() {
+    setMode("sign-in");
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setError("");
+    setLoading(true);
+    try {
+      await api("/auth/sign-in", {
+        method: "POST",
+        body: JSON.stringify({ email: DEMO_EMAIL, password: DEMO_PASSWORD }),
+      });
+      router.push("/");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Demo sign-in failed");
     } finally {
       setLoading(false);
     }
@@ -77,7 +99,7 @@ export default function SignInPage() {
             </>
           )}
           <button className="primary sign-in-button" disabled={loading}>
-            {loading ? "Please wait…" : mode === "sign-in" ? "Sign in" : "Create workspace"}
+            {loading ? "Please wait..." : mode === "sign-in" ? "Sign in" : "Create workspace"}
           </button>
         </form>
         <p className="sign-in-toggle">
@@ -88,9 +110,13 @@ export default function SignInPage() {
           )}
         </p>
         {mode === "sign-in" && (
-          <p className="sign-in-demo">
-            Demo: <strong>sahil@example.com</strong> / <strong>orbit123</strong>
-          </p>
+          <div className="sign-in-demo">
+            <span>Demo workspace</span>
+            <strong>{DEMO_EMAIL}</strong>
+            <button type="button" className="secondary sign-in-button demo-sign-in-button" onClick={() => void handleDemoSignIn()} disabled={loading}>
+              Sign in as demo user
+            </button>
+          </div>
         )}
       </div>
     </div>

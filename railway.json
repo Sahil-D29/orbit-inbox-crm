@@ -5,6 +5,6 @@
     "buildCommand": "pnpm install --frozen-lockfile --prod=false && pnpm --filter @crm/database generate && pnpm --filter @crm/contracts build && pnpm --filter @crm/database build && pnpm --filter @crm/web build"
   },
   "deploy": {
-    "startCommand": "HOSTNAME=0.0.0.0 pnpm --filter @crm/web start"
+    "startCommand": "pnpm --filter @crm/web start"
   }
 }
