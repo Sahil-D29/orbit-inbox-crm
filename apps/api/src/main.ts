@@ -12,6 +12,7 @@ declare module "express-session" {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
+  app.getHttpAdapter().getInstance().set("trust proxy", 1);
   app.setGlobalPrefix("v1");
   app.enableCors({
     origin: process.env.WEB_URL ?? "http://localhost:3000",
@@ -26,7 +27,7 @@ async function bootstrap() {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       },
     }),
